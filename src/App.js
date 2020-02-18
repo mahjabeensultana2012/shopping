@@ -12,13 +12,15 @@ class App extends React.Component {
   }
   componentWillMount() {
     fetch('http://localhost:8001/products')
-      .then(response => response.json)
-      .then(data =>
-        this.setState({
-          products: data,
-          filteredProducts: data,
-        })
-      );
+      .then(res => res.json())
+      .catch(err =>
+        fetch('db.json')
+          .then(res => res.json())
+          .then(data => data.products)
+      )
+      .then(data => {
+        this.setState({ products: data });
+      });
   }
   handleAddToCart = () => {};
 
@@ -30,7 +32,7 @@ class App extends React.Component {
         <div className="row">
           <div className="col-md-8">
             <Products
-              products={this.state.filteredProducts}
+              products={this.state.products}
               handleAddToCart={this.handleAddToCart}
             />
           </div>
