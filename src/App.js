@@ -7,8 +7,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       products: [],
-      filteredProduct: [],
+      filteredProducts: [],
     };
+  }
+  componentWillMount() {
+    fetch('http://localhost:8001/products')
+      .then(response => response.json)
+      .then(data =>
+        this.setState({
+          products: data,
+          filteredProducts: data,
+        })
+      );
   }
   handleAddToCart = () => {};
 
@@ -20,7 +30,7 @@ class App extends React.Component {
         <div className="row">
           <div className="col-md-8">
             <Products
-              products={this.state.filteredProduct}
+              products={this.state.filteredProducts}
               handleAddToCart={this.handleAddToCart}
             />
           </div>
