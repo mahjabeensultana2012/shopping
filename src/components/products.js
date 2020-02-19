@@ -3,7 +3,7 @@ import React from 'react';
 class Products extends React.Component {
   render() {
     const { products, handleAddToCart } = this.props;
-    console.log('aaa', this.props);
+
     const productItems = products.map(product => (
       <div className="col-md-8" key={product.id}>
         <div className="thumbnail text-center">
